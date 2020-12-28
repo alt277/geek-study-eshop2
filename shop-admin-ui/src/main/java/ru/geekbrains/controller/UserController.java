@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.geekbrains.controller.repr.UserRepr;
 import ru.geekbrains.error.NotFoundException;
 import ru.geekbrains.persist.repo.RoleRepository;
+import ru.geekbrains.service.RoleService;
 import ru.geekbrains.service.UserService;
 
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ public class UserController {
     private final RoleRepository roleRepository;
 
     private final UserService userService;
+
 
     @Autowired
     public UserController(RoleRepository roleRepository,
@@ -80,6 +82,7 @@ public class UserController {
     @GetMapping("/roles")
     public String adminRolesPage(Model model) {
         model.addAttribute("activePage", "Roles");
-        return "index";
+        model.addAttribute("roles", roleRepository.findAll());
+        return "roles";
     }
 }
